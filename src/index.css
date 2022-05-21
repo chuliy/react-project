@@ -1,0 +1,14 @@
+@import url('http://fonts.cdnfonts.com/css/sf-pro-display');
+body {
+  margin: 0;
+  font-family: 'SF Pro Display', sans-serif;
+  font-weight: 600;
+  font-size: large;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #ECF2FD;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
