@@ -15,10 +15,14 @@ function App() {
         <div className='link-element'>
           <Link to='/manageitems' className='links'>Manage Items</Link>
         </div>
+        <div className='link-element'>
+          <Link to='/createitems' className='links'>Create Items</Link>
+        </div>
       </div>
       <Routes>
         <Route path='/' element={<ListPage/>}/>
-        <Route path='manageitems' element={<EditPage/>}/>
+        <Route path='/manageitems' element={<EditPage/>}/>
+        <Route path='/createitems' element={<CreatePage/>}/>
       </Routes>
     </div>
   );
