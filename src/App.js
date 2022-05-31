@@ -1,8 +1,7 @@
 import './App.css';
 import { Routes, Route, Link } from 'react-router-dom';
 import ListPage from './components/ListPage/ListPage';
-import EditPage from './components/EditPage/EditPage';
-
+import EditPageFilter from './components/EditPageFilter/EditPageFilter';
 import CreatePage from './components/CreatePage/CreatePage';
 
 function App() {
@@ -28,7 +27,7 @@ function App() {
       </div>
       <Routes>
         <Route path="/" element={<ListPage />} />
-        <Route path="/manageitems" element={<EditPage />} />
+        <Route path="/manageitems" element={<EditPageFilter />} />
         <Route path="/createitems" element={<CreatePage />} />
       </Routes>
     </div>
