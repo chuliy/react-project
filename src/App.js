@@ -3,7 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import ListPage from './components/ListPage/ListPage';
 import EditPage from './components/EditPage/EditPage';
 
-// import CreatePage from './components/CreatePage/CreatePage';
+import CreatePage from './components/CreatePage/CreatePage';
 
 function App() {
   return (
