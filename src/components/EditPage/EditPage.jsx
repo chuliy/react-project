@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import s from './EditPage.module.css';
 
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 
 export default function EditPage({ onSubmit }) {
   const [requestKey, setRequestKey] = useState('');
@@ -40,6 +40,6 @@ export default function EditPage({ onSubmit }) {
     </header>
   );
 }
-EditPage.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
+//EditPage.propTypes = {
+//  onSubmit: PropTypes.func.isRequired,
+//};

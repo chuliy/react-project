@@ -1,75 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SortDropdown } from './SortDropdown/SortDropdown';
+import { Item } from './Item/Item';
+import { getItems, getCategories } from '../../../serverqueries';
 import "./Items.css";
 
+function matchCategory(categoryId, categoriesListOfObj) {
+    const category = categoriesListOfObj.find(obj => obj.id === categoryId);
+    return category.name
+}
+
+let tempVar = {products:[], categories:[]};
+
 export const Items = (props) => {
-    let tempVar = null;
 
-    // GET product list
-    async function getItemsFromServer() {
-        return await fetch("http://localhost:3000/products")
-            .then(res => res.json())
-            .then(res => reassign(res))
-            .then(res => console.log(tempVar));
-    }
-
-    // POST new item
-    async function postItemsOnServer() {
-        await fetch('http://localhost:3000/product', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                name: "someItem",
-                cost: 1500,
-                categoryId: 3
+    const [state, setState] = useState({
+        products: [],
+        categories: []
+    });
+    
+    // МОЖНО ЛИ ЭТО СДЕЛАТЬ АДЕКВАТНЕЕ?  
+    useEffect(() => {
+            getItems().then(res => {
+                tempVar.products=res;
             })
-        })
-            //.then(res => res.json())
-            //.then(res => console.log(res));
-    }
+                .then(getCategories().then(res => {
+                    tempVar.categories=res;
+                    setState(tempVar);
+                }));    
+    });
 
-    // DELETE all items from server
-    async function deleteItmesFromServer() {
-        for (let i = 0; i < tempVar.length; i++) {
-            await fetch(`http://localhost:3000/product/${tempVar[i].id}`, {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/json' },
-                params: { id: tempVar[i].id },
-                body: null
-            })
-                //.then(res => res.json())
-                //.then(res => reassign(res));
-        }
-    }
-
-    // MODIFY item on server
-    async function modifyItmeOnServer() {
-        await fetch(`http://localhost:3000/product/${tempVar[0].id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            params: { id: tempVar[0].id },
-            body: JSON.stringify({ name: "alalalla", cost: 50, categoryId: 1})
-        })
-            //.then(res => console.log(res));
-    }
-
-    // app.put('/product/:id', (req, res) => {
-    //     const respond = getResponder(res);
-    //     const { id } = req.params;
-    //     const { name, cost, categoryId } = req.body;
-
-    function reassign(baseVar) {
-        tempVar = baseVar;
-    }
+    let mappedStateToJsx = state.products.map(
+        (el, ix) =>
+        (<Item
+            key={Math.random()}
+            pName={el.name}
+            pCategoryId={matchCategory(el.categoryId, state.categories)}
+            pCost={el.cost}>
+        </Item>));
 
     return (
         <div className='items-main-container'>
             <SortDropdown />
             <div>
-                <button onClick={getItemsFromServer}>GET data</button>
-                <button onClick={postItemsOnServer}>POST data</button>
-                <button onClick={deleteItmesFromServer}>DELETE data</button>
-                <button onClick={modifyItmeOnServer}>PUT/MODIFY data</button>
+                {mappedStateToJsx}
             </div>
         </div>
     );
