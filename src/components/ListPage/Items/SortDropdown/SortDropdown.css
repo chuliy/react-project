@@ -1,5 +1,6 @@
 .dropdown-main-container {
     width: 200px;
+    position: absolute;
     min-height: 15px;
     background-color: rgba(255, 255, 255, 0.8);
     font-family: 'SF Pro Display';
@@ -10,19 +11,22 @@
     /* identical to box height */
     letter-spacing: 1px;
     /* Secondary Color */
-    color: rgba(124, 141, 181, 0.72);
+    color: #2e3271;
 }
 
 .d {
     display: flex;
     align-items: center;
-    
+
+    position: relative;
+    z-index: 1;
+
     width: 200px;
     min-height: 30px;
-    border-bottom: 2px solid rgba(124, 141, 181, 0.72);
 }
 
 .d:hover {
     cursor: pointer;
-    background-color: grey;
+    background-color: #2e3271;
+    color: rgba(255, 255, 255, 0.8);
 }
