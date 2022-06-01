@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import s from './EditPageFilter.module.css';
+import { v4 as uuidv4 } from 'uuid';
+// import { getItems } from '../../serverqueries';
+// import { Items } from '../ListPage/Items/Items';
 // This holds a list of some fiction products
 // Some  have the same name but different cost and id
 const PRODUCTS = [
-  { categoryId: 1, name: 'Einaudi', cost: 500 },
-  { categoryId: 2, name: 'Brahms', cost: 600 },
-  { categoryId: 3, name: 'Tom Henk', cost: 700 },
-  { categoryId: 4, name: 'Tom Handric', cost: 800 },
+  { id: uuidv4(), categoryId: 1, name: 'Einaudi', cost: 500 },
+  { id: uuidv4(), categoryId: 2, name: 'Brahms', cost: 600 },
+  { id: uuidv4(), categoryId: 3, name: 'Tom Henk', cost: 700 },
+  { id: uuidv4(), categoryId: 4, name: 'Tom Handric', cost: 800 },
 ];
 
 function App() {
@@ -32,6 +35,10 @@ function App() {
 
     setName(keyword);
   };
+  const deletePosition = id => {
+    setFoundProducts(foundProducts.filter(product => product.id !== id));
+    console.log('click on delete');
+  };
 
   return (
     <div className={s.container}>
@@ -42,7 +49,6 @@ function App() {
         className={s.input}
         placeholder="Search by name"
       />
-
       <div className={s.list}>
         {foundProducts && foundProducts.length > 0 ? (
           foundProducts.map(product => (
@@ -53,7 +59,12 @@ function App() {
               <button type="submit" className={s.button}>
                 Edit
               </button>
-              <button type="submit" className={s.buttonDelete}>
+              <button
+                type="submit"
+                className={s.buttonDelete}
+                value={name}
+                onClick={() => deletePosition(product.id)}
+              >
                 Delete
               </button>
             </li>
@@ -62,6 +73,7 @@ function App() {
           <h1>No results found!</h1>
         )}
       </div>
+      {/* <Items />; */}
     </div>
   );
 }
