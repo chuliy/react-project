@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import "../CreatePage/CreatePage.css";
 import { getCategories, postItem } from '../../serverqueries';
 
-//let flag = true;
-
 const CreatePage = () => {
   const [val, setVal] = useState({ name: "", categoryId: null, cost: "" });
   const [list, setList] = useState([]);
@@ -18,23 +16,6 @@ const CreatePage = () => {
       setList(tempVar);
     });
   }, []);
-
-  // ??????????????????????????????????????????????????
-  // if (flag) {
-  //   (async function abcd() {
-  //     getCategories().then(res => {
-  //       setVal({ name: "", categoryId: res[0].id, cost: "" });
-  //       let tempVar = [];
-  //       for (let i = 0; i < res.length; i++) {
-  //         tempVar[i] = (<option key={Math.random()} value={res[i].id}>{res[i].name}</option>);
-  //       }
-  //       setList(tempVar);
-  //     })
-  //     flag = false;
-  //   })()
-  // }
-
-  console.log(val);
 
   return (
     <div>
@@ -55,9 +36,7 @@ const CreatePage = () => {
             type="number"
             placeholder="Only numbers"
             className="input"
-            //value={val}
             onChange={(e) => setVal({ name: val.name, categoryId: val.categoryId, cost: e.target.value })
-              //setVal((v) => (e.target.validity.valid ? e.target.value : v))
             }
           />
         </div>
