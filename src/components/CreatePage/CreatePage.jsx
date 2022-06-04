@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "../CreatePage/CreatePage.css";
-import { getCategories, postItem } from '../../serverqueries';
+import { getCategories, getItems, postItem } from '../../serverqueries';
+import { useForm } from "react-hook-form";
 
 const CreatePage = () => {
   const [val, setVal] = useState({ name: "", categoryId: null, cost: "" });
   const [list, setList] = useState([]);
+  console.log(val);
+
+  const {handleSubmit} = useForm();
+  const onSubmit = (data, e) => {};
+
 
   useEffect(() => {
     getCategories().then(res => {
@@ -19,35 +25,53 @@ const CreatePage = () => {
 
   return (
     <div>
-      <div className="container">
-        <div className="element-wrapper">
-          Enter product name:
-          <input className="input" type="text" onChange={(e) => setVal({ name: e.target.value, categoryId: val.categoryId, cost: val.cost })} />
-        </div>
-        <div className="element-wrapper">
-          Product category:
-          <select className="items" onChange={(e) => setVal({ name: val.name, categoryId: Number(e.target.value), cost: val.cost })}>
-            {list}
-          </select>
-        </div>
-        <div className="element-wrapper">
-          Price:
-          <input
-            type="number"
-            placeholder="Only numbers"
-            className="input"
-            onChange={(e) => setVal({ name: val.name, categoryId: val.categoryId, cost: e.target.value })
-            }
-          />
-        </div>
 
-        <div className="add" id="cancel" onClick={() => console.log("asd")}>
-          Cancel
+      <form onSubmit={handleSubmit(onSubmit)}>
+      
+        <div className="container" >
+          <div className="element-wrapper">
+            Enter product name:
+            <input className="input" type="text" 
+            // value={val.name} 
+            onChange={(e) => setVal({ name: e.target.value, categoryId: val.categoryId, cost: val.cost })}
+          />
+          </div>
+          <div className="element-wrapper">
+            Product category:
+            <select className="items" onChange={(e) => setVal({ name: val.name, categoryId: Number(e.target.value), cost: val.cost })}>
+              {list}
+            </select>
+          </div>
+          <div className="element-wrapper">
+            Price:
+            <input
+              type="number"
+              placeholder="Only numbers"
+              className="input"
+              // value={val.cost}
+              onChange={(e) => setVal({ name: val.name, categoryId: val.categoryId, cost: e.target.value }) 
+              }
+            />
+          </div>
+
+          <button className="add" id="cancel" onSubmit={onSubmit} >
+            Cancel
+          </button>
+          {/* <button className="add" onClick={() => {setVal({name:'',categoryId:null,cost:''})}}>
+            Reset
+          </button> */}
+          <input className="add" type='reset' 
+             value="Save"
+              onClick={(e) => {
+            postItem({ name: val.name, categoryId: val.categoryId, cost: val.cost })
+            console.log('Item posted :', val)
+            console.log(getItems())
+          }}
+            >
+          </input>
         </div>
-        <div className="add" onClick={() => postItem({ name: val.name, categoryId: val.categoryId, cost: val.cost })}>
-          Save
-        </div>
-      </div>
+    </form>
+
     </div>
   );
 };
