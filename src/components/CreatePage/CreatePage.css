@@ -34,6 +34,9 @@ select {
 .add {
   height: 50px;
   width: 300px;
+  font-weight: 700;
+  font-size: larger;
+  color: #2E3271;
   background-color:#fff;
   border: 1px solid #282c34;
   text-align: center;
