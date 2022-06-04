@@ -3,7 +3,6 @@ import "../CreatePage/CreatePage.css";
 import { getCategories, getItems, postItem } from '../../serverqueries';
 import { useForm } from "react-hook-form";
 
-
 const CreatePage = () => {
   const [val, setVal] = useState({ name: "", categoryId: null, cost: "" });
   const [list, setList] = useState([]);
