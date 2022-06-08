@@ -3,6 +3,12 @@ import s from './EditPageFilter.module.css';
 // import EditableProduct from './EditableProduct';
 import { v4 as uuidv4 } from 'uuid';
 import { getItems, getCategories, deleteItem } from '../../serverqueries';
+import {
+  getItems,
+  getCategories,
+  deleteItem,
+  // baseUrl,
+} from '../../serverqueries';
 
 // This holds a list of some fiction products
 // Some  have the same name but different cost and id
@@ -18,6 +24,12 @@ const initialProducts = [
 //   if (!stateProducts || !stateProducts.length) {
 //     return <h1>Loading</h1>;
 //   }
+function matchCategory(categoryId, categoriesListOfObj) {
+  const category = categoriesListOfObj.find(obj => obj.id === categoryId);
+  return category.name;
+}
+
+let tempVar = { products: [], categories: [] };
 
 function EditPageFilter() {
   // the value of the search field
