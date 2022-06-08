@@ -1,22 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import s from './EditPageFilter.module.css';
+// import EditableProduct from './EditableProduct';
+import { v4 as uuidv4 } from 'uuid';
+import { getItems, getCategories, deleteItem } from '../../serverqueries';
 import {
   getItems,
   getCategories,
   deleteItem,
-  baseUrl,
+  // baseUrl,
 } from '../../serverqueries';
-import { Item } from './../ListPage/Items/Item/Item';
 
 // This holds a list of some fiction products
 // Some  have the same name but different cost and id
-const PRODUCTS = [
-  { categoryId: 1, name: 'Einaudi', cost: 500 },
-  { categoryId: 2, name: 'Brahms', cost: 600 },
-  { categoryId: 3, name: 'Tom Henk', cost: 700 },
-  { categoryId: 4, name: 'Tom Handric', cost: 800 },
+const initialProducts = [
+  { id: uuidv4(), categoryId: 'tv', name: 'Einaudi', cost: 500 },
+  { id: uuidv4(), categoryId: 'tv', name: 'Brahms', cost: 600 },
+  { id: uuidv4(), categoryId: 'tv', name: 'Tom Henk', cost: 700 },
+  { id: uuidv4(), categoryId: 'tv', name: 'Tom Handric', cost: 800 },
 ];
 
+// function DemoComponent(props) {
+//   const { stateProducts } = props;
+//   if (!stateProducts || !stateProducts.length) {
+//     return <h1>Loading</h1>;
+//   }
 function matchCategory(categoryId, categoriesListOfObj) {
   const category = categoriesListOfObj.find(obj => obj.id === categoryId);
   return category.name;
@@ -27,89 +34,90 @@ let tempVar = { products: [], categories: [] };
 function EditPageFilter() {
   // the value of the search field
   const [name, setName] = useState('');
-  const [val, setVal] = useState({
+  const [val] = useState({
     name: '',
     categoryId: null,
-    cost: '',
     id: '',
   });
+  const [stateProducts, setStateProducts] = useState([]);
+  const [stateCategories, setStateCategories] = useState([]);
 
-  const [state, setState] = useState({
-    products: [],
-    categories: [],
-  });
+  function matchCategory(categoryId, categoriesListOfObj) {
+    const categoryObj = categoriesListOfObj.find(obj => obj.id === categoryId);
+    debugger;
+
+    return categoryObj.name;
+  }
   useEffect(() => {
-    getItems()
-      .then(res => {
-        tempVar.products = res;
-      })
-      .then(
-        getCategories().then(res => {
-          tempVar.categories = res;
-          setState(tempVar);
-        }),
-      );
-  },);
-  let mappedStateToJsx = state.products.map((el, ix) => (
-    <>
-      <Item
-        key={Math.random()}
-        pName={el.name}
-        pCategoryId={matchCategory(el.categoryId, state.categories)}
-        pCost={el.cost}
-        pId={el.id}
-      ></Item>
-      <button type="submit" className={s.button}>
-        Edit
-      </button>
-      <button
-        type="submit"
-        className={s.buttonDelete}
-        onClick={e => {
-          dltItem(el.id);
-        }}>
-        Delete
-      </button>
-    </>
-  ));
+    getItems().then(items => setStateProducts(items));
+    getCategories().then(items => setStateCategories(items));
+  }, []);
+  useEffect(() => {
+    deleteItem()
+      // async function dltItem(idToDelete, setStateProducts) {
+      //   await fetch(`${baseUrl}/product/${idToDelete}`, {
+      //     method: 'DELETE',
+      //     headers: { 'Content-Type': 'application/json' },
+      //     params: { id: idToDelete },
+      //     body: null,
+      //   })
+      // .then(res => {
+      //   getItems().then((res)=> {setState(res)})
+      // })
+      .then(() => getItems())
+      .then(items => setStateProducts(items))
+      .then(console.log(`Item deleted`));
+  }, []);
+  const deleteItems = idToDelete => {
+    setStateProducts(stateProducts.filter(item => item.id !== idToDelete));
+    console.log('delete from fetch');
+  };
+  let mappedStateToJsx = stateProducts.map(categoryObj => {
+    return (
+      <li key={categoryObj.id} className={s.product}>
+        <span className={s.id}>
+          {matchCategory(categoryObj.categoryId, stateCategories)}
+        </span>
+        <span className={s.name}>{categoryObj.name}</span>
 
-  async function dltItem(idToDelete) {
-    await fetch(`${baseUrl}/product/${idToDelete}`, {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      params: { id: idToDelete },
-      body: null,
-    })
-    .then(res => {
-      tempVar.products = res;
-      console.log(res);
-    })
-    // .then(res => {
-    //   getItems().then((res)=> {setState(res)})
-    // })
-      .then(
-    console.log(`Item ${idToDelete} deleted`)
-      )
-      }
+        <button type="submit" className={s.button}>
+          Edit
+        </button>
+        <button
+          type="submit"
+          className={s.buttonDelete}
+          value={val}
+          onClick={() => deleteItems(categoryObj.id)}
+        >
+          Delete
+        </button>
+      </li>
+    );
+  });
 
+  // let mappedStateToJsx = stateProducts.map(el => {});
   // the search result
-  const [foundProducts, setFoundProducts] = useState(PRODUCTS);
+  const [foundProducts, setFoundProducts] = useState(initialProducts);
 
   const filter = e => {
     const keyword = e.target.value;
 
     if (keyword !== '') {
-      const results = PRODUCTS.filter(product => {
+      const results = initialProducts.filter(product => {
         return product.name.toLowerCase().startsWith(keyword.toLowerCase());
         // Use the toLowerCase() method to make it case-insensitive
       });
       setFoundProducts(results);
     } else {
-      setFoundProducts(PRODUCTS);
+      setFoundProducts(initialProducts);
       // If the text field is empty, show all products
     }
 
     setName(keyword);
+  };
+  const deletePosition = id => {
+    setFoundProducts(foundProducts.filter(product => product.id !== id));
+    console.log('click on delete');
   };
 
   return (
@@ -125,7 +133,7 @@ function EditPageFilter() {
       <div className={s.list}>
         {foundProducts && foundProducts.length > 0 ? (
           foundProducts.map(product => (
-            <li key={product.id} className={s.product}>
+            <li key={product.id} className={s.productInitial}>
               <span className={s.id}>{product.categoryId}</span>
               <span className={s.name}>{product.name}</span>
               {/* <span className={s.cost}>{product.cost}$</span> */}
@@ -135,15 +143,8 @@ function EditPageFilter() {
               <button
                 type="submit"
                 className={s.buttonDelete}
-                onClick={e => {
-                  dltItem(val.name);
-                  deleteItem({
-                    name: val.name,
-                    categoryId: val.categoryId,
-                    cost: val.cost,
-                  });
-                  console.log(getItems());
-                }}
+                value={name}
+                onClick={() => deletePosition(product.id)}
               >
                 Delete
               </button>
@@ -153,6 +154,8 @@ function EditPageFilter() {
           <h1>No results found!</h1>
         )}
         {mappedStateToJsx}
+        {/* <DemoComponent /> */}
+        {/* <EditableProduct onRemove={deleteContact} /> */}
       </div>
     </div>
   );
