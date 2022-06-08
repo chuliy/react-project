@@ -2,13 +2,26 @@ import React from 'react';
 import "./Filter.css";
 
 export const Filter = (props) => {
+    if (props.filters.length > 0) {
+        const mappedFiltersToJsx = props.filters.map(
+            (el) =>
+            (
+                <div key={el.id}>
+                    <input type="checkbox" name={el.name} />
+                    <label htmlFor={el.name}>
+                        {el.name}
+                    </label>
+                </div>
+            )
+        )
 
-    return (
-        <div className='filter-container'>
-            <div className='filters-header'>FILTERS</div>
-            <div className='filters'>
-                {props.pFilters.mappedFiltersToJsx}
+        return (
+            <div className='filter-container'>
+                <div className='filters-header'>FILTERS</div>
+                <div className='filters'>
+                    {mappedFiltersToJsx}
+                </div>
             </div>
-        </div>
-    );
+        )
+    }
 };
