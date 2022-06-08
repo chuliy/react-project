@@ -25,6 +25,14 @@
   display: flex;
   justify-content: right;
 }
+.productInitial {
+  list-style: none;
+  margin: 10px 0;
+  padding: 10px;
+  background: rgb(198, 236, 217);
+  display: flex;
+  justify-content: right;
+}
 
 .id {
   color: rgb(129, 24, 199);
