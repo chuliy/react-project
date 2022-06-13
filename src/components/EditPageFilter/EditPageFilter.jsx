@@ -87,7 +87,6 @@ function EditPageFilter() {
       setFoundProducts(initialProducts);
       // If the text field is empty, show all products
     }
-
     setName(keyword);
   };
   const deletePosition = id => {
