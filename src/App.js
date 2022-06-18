@@ -9,18 +9,18 @@ function App() {
     <div>
       <div className="logo">Logo</div>
       <div>
-        <div className="link-element">
+        <div className="link-element" data-cy="list-page">
           <Link to="/" className="links">
             List Page
           </Link>
         </div>
         <div className="link-element">
-          <Link to="/manageitems" className="links">
+          <Link to="/manageitems" className="links" data-cy="edit-page">
             Manage Items
           </Link>
         </div>
         <div className="link-element">
-          <Link to="/createitems" className="links">
+          <Link to="/createitems" className="links" data-cy="create-page">
             Create Items
           </Link>
         </div>

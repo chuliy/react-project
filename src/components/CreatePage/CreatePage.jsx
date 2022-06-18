@@ -8,8 +8,8 @@ const CreatePage = () => {
   const [list, setList] = useState([]);
   console.log(val);
 
-  const {handleSubmit} = useForm();
-  const onSubmit = (data, e) => {};
+  const { handleSubmit } = useForm();
+  const onSubmit = (data, e) => { };
 
 
   useEffect(() => {
@@ -27,18 +27,27 @@ const CreatePage = () => {
     <div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-      
+
         <div className="container" >
           <div className="element-wrapper">
             Enter product name:
-            <input className="input" type="text" 
-            // value={val.name} 
-            onChange={(e) => setVal({ name: e.target.value, categoryId: val.categoryId, cost: val.cost })}
-          />
+            <input
+              className="input"
+              type="text"
+              data-cy="product-name"
+              // value={val.name} 
+              onChange={(e) => setVal({ name: e.target.value, categoryId: val.categoryId, cost: val.cost })}
+            />
           </div>
           <div className="element-wrapper">
             Product category:
-            <select className="items" onChange={(e) => setVal({ name: val.name, categoryId: Number(e.target.value), cost: val.cost })}>
+            <select className="items"
+              data-cy="product-category"
+              onChange={(e) => setVal({
+                name: val.name,
+                categoryId: Number(e.target.value),
+                cost: val.cost
+              })}>
               {list}
             </select>
           </div>
@@ -48,8 +57,9 @@ const CreatePage = () => {
               type="number"
               placeholder="Only numbers"
               className="input"
+              data-cy="product-cost"
               // value={val.cost}
-              onChange={(e) => setVal({ name: val.name, categoryId: val.categoryId, cost: e.target.value }) 
+              onChange={(e) => setVal({ name: val.name, categoryId: val.categoryId, cost: e.target.value })
               }
             />
           </div>
@@ -60,17 +70,18 @@ const CreatePage = () => {
           {/* <button className="add" onClick={() => {setVal({name:'',categoryId:null,cost:''})}}>
             Reset
           </button> */}
-          <input className="add" type='reset' 
-             value="Save"
-              onClick={(e) => {
-            postItem({ name: val.name, categoryId: val.categoryId, cost: val.cost })
-            console.log('Item posted :', val)
-            console.log(getItems())
-          }}
-            >
+          <input className="add" type='reset'
+            value="Save"
+            data-cy="submit"
+            onClick={(e) => {
+              postItem({ name: val.name, categoryId: val.categoryId, cost: val.cost })
+              console.log('Item posted :', val)
+              console.log(getItems())
+            }}
+          >
           </input>
         </div>
-    </form>
+      </form>
 
     </div>
   );
