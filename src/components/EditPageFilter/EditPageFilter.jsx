@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react';
 import s from './EditPageFilter.module.css';
 // import EditableProduct from './EditableProduct';
 import { v4 as uuidv4 } from 'uuid';
+<<<<<<< HEAD
 import {
   getItems,
   getCategories,
   deleteItem,
   // baseUrl,
 } from '../../serverqueries';
+=======
+import { getItems, getCategories, deleteItem } from '../../serverqueries';
+>>>>>>> fb482c00e854a31ceac12e9bd877553fa71b0029
 
 // This holds a list of some fiction products
 // Some  have the same name but different cost and id
@@ -23,12 +27,14 @@ const initialProducts = [
 //   if (!stateProducts || !stateProducts.length) {
 //     return <h1>Loading</h1>;
 //   }
-function matchCategory(categoryId, categoriesListOfObj) {
-  const category = categoriesListOfObj.find(obj => obj.id === categoryId);
-  return category.name;
-}
+<<<<<<< HEAD
+=======
 
-let tempVar = { products: [], categories: [] };
+>>>>>>> fb482c00e854a31ceac12e9bd877553fa71b0029
+function matchCategory(categoryId, categoriesListOfObj) {
+  const categoryObj = categoriesListOfObj.find(obj => obj.id === categoryId);
+  return categoryObj.name;
+}
 
 function EditPageFilter() {
   // the value of the search field
@@ -40,6 +46,7 @@ function EditPageFilter() {
   });
   const [stateProducts, setStateProducts] = useState([]);
   const [stateCategories, setStateCategories] = useState([]);
+<<<<<<< HEAD
 
   function matchCategory(categoryId, categoriesListOfObj) {
     const categoryObj = categoriesListOfObj.find(obj => obj.id === categoryId);
@@ -93,6 +100,44 @@ function EditPageFilter() {
       </li>
     );
   });
+=======
+
+
+  useEffect(() => {
+    getItems().then(items => setStateProducts(items));
+    getCategories().then(items => setStateCategories(items));
+  }, []);
+
+  const deleteItems = idToDelete => {
+    setStateProducts(stateProducts.filter(item => item.id !== idToDelete));
+    deleteItem(idToDelete);
+  };
+  
+  let mappedStateToJsx =[];
+  if (stateProducts.length > 0 && stateCategories.length > 0) {
+    mappedStateToJsx = stateProducts.map(categoryObj => {
+      return (
+        <li key={categoryObj.id} className={s.product}>
+          <span className={s.id}>
+            {matchCategory(categoryObj.categoryId, stateCategories)}
+          </span>
+          <span className={s.name}>{categoryObj.name}</span>
+          <button type="submit" className={s.button}>
+            Edit
+          </button>
+          <button
+            type="submit"
+            className={s.buttonDelete}
+            value={val}
+            onClick={() => deleteItems(categoryObj.id)}
+          >
+            Delete
+          </button>
+        </li>
+      );
+    })
+  };
+>>>>>>> fb482c00e854a31ceac12e9bd877553fa71b0029
 
   // let mappedStateToJsx = stateProducts.map(el => {});
   // the search result
@@ -111,7 +156,6 @@ function EditPageFilter() {
       setFoundProducts(initialProducts);
       // If the text field is empty, show all products
     }
-
     setName(keyword);
   };
   const deletePosition = id => {

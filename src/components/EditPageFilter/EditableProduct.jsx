@@ -22,4 +22,8 @@ export default function EditableProduct({ el, onRemove }) {
       </button>
     </li>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> fb482c00e854a31ceac12e9bd877553fa71b0029
