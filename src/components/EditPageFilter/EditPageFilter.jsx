@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import s from './EditPageFilter.module.css';
-// import EditableProduct from './EditableProduct';
-// import { v4 as uuidv4 } from 'uuid';
 import { getItems, getCategories, deleteItem } from '../../serverqueries';
 
 // This holds a list of some fiction products
