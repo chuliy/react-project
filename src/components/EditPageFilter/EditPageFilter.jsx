@@ -4,12 +4,9 @@ import { getItems, getCategories, deleteItem } from '../../serverqueries';
 
 // This holds a list of some fiction products
 // Some  have the same name but different cost and id
+ editPage
 const initialProducts = [];
-//   { id: uuidv4(), categoryId: 'tv', name: 'Einaudi', cost: 500 },
-//   { id: uuidv4(), categoryId: 'tv', name: 'Brahms', cost: 600 },
-//   { id: uuidv4(), categoryId: 'tv', name: 'Tom Henk', cost: 700 },
-//   { id: uuidv4(), categoryId: 'tv', name: 'Tom Handric', cost: 800 },
-// ];
+
 
 function matchCategory(categoryId, categoriesListOfObj) {
   const products = categoriesListOfObj.find(obj => obj.id === categoryId);
@@ -32,6 +29,7 @@ function EditPageFilter() {
     setStateProducts(stateProducts.filter(item => item.id !== idToDelete));
     deleteItem(idToDelete);
   };
+
 
   const filter = e => {
     const keyword = e.target.value;
@@ -73,6 +71,7 @@ function EditPageFilter() {
       );
     });
   }
+
 
   return (
     <div className={s.container}>
