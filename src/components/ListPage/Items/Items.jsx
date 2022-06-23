@@ -29,8 +29,4 @@ export const Items = (props) => {
             </div>
         )
     }
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> fb482c00e854a31ceac12e9bd877553fa71b0029
