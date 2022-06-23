@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import "./SortDropdown.css";
 
 function sort(sortType, sortArr, sortFlags) {
-    console.log("sort fucntion arguments:", sortType, sortArr);
     if (sortType === "name") {
         sortArr.sort((a, b) => {
             return a.name > b.name ? -sortFlags.name : sortFlags.name
