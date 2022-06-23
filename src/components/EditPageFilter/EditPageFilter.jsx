@@ -4,27 +4,19 @@ import { getItems, getCategories, deleteItem } from '../../serverqueries';
 
 // This holds a list of some fiction products
 // Some  have the same name but different cost and id
-const initialProducts = [
-  { id: uuidv4(), categoryId: 'tv', name: 'Einaudi', cost: 500 },
-  { id: uuidv4(), categoryId: 'tv', name: 'Brahms', cost: 600 },
-  { id: uuidv4(), categoryId: 'tv', name: 'Tom Henk', cost: 700 },
-  { id: uuidv4(), categoryId: 'tv', name: 'Tom Handric', cost: 800 },
-];
+ editPage
+const initialProducts = [];
 
 
 function matchCategory(categoryId, categoriesListOfObj) {
-  const categoryObj = categoriesListOfObj.find(obj => obj.id === categoryId);
-  return categoryObj.name;
+  const products = categoriesListOfObj.find(obj => obj.id === categoryId);
+  return products.name;
 }
 
 function EditPageFilter() {
   // the value of the search field
   const [name, setName] = useState('');
-  const [val] = useState({
-    name: '',
-    categoryId: null,
-    id: '',
-  });
+
   const [stateProducts, setStateProducts] = useState([]);
   const [stateCategories, setStateCategories] = useState([]);
 
@@ -38,23 +30,40 @@ function EditPageFilter() {
     deleteItem(idToDelete);
   };
 
+
+  const filter = e => {
+    const keyword = e.target.value;
+
+    if (keyword !== '') {
+      const results = stateProducts.filter(products => {
+        return products.name.toLowerCase().startsWith(keyword.toLowerCase());
+        // Use the toLowerCase() method to make it case-insensitive
+      });
+      setStateProducts(results);
+    } else {
+      setStateProducts(initialProducts);
+
+      // If the text field is empty, show all products
+    }
+    setName(keyword);
+  };
+
   let mappedStateToJsx = [];
   if (stateProducts.length > 0 && stateCategories.length > 0) {
-    mappedStateToJsx = stateProducts.map(categoryObj => {
+    mappedStateToJsx = stateProducts.map(products => {
       return (
-        <li key={categoryObj.id} className={s.product}>
+        <li key={products.id} className={s.product}>
           <span className={s.id}>
-            {matchCategory(categoryObj.categoryId, stateCategories)}
+            {matchCategory(products.categoryId, stateCategories)}
           </span>
-          <span className={s.name}>{categoryObj.name}</span>
+          <span className={s.name}>{products.name}</span>
           <button type="submit" className={s.button}>
             Edit
           </button>
           <button
             type="submit"
             className={s.buttonDelete}
-            value={val}
-            onClick={() => deleteItems(categoryObj.id)}
+            onClick={() => deleteItems(products.id)}
           >
             Delete
           </button>
@@ -63,29 +72,6 @@ function EditPageFilter() {
     });
   }
 
-  // let mappedStateToJsx = stateProducts.map(el => {});
-  // the search result
-  const [foundProducts, setFoundProducts] = useState(initialProducts);
-
-  const filter = e => {
-    const keyword = e.target.value;
-
-    if (keyword !== '') {
-      const results = initialProducts.filter(product => {
-        return product.name.toLowerCase().startsWith(keyword.toLowerCase());
-        // Use the toLowerCase() method to make it case-insensitive
-      });
-      setFoundProducts(results);
-    } else {
-      setFoundProducts(initialProducts);
-      // If the text field is empty, show all products
-    }
-    setName(keyword);
-  };
-  const deletePosition = id => {
-    setFoundProducts(foundProducts.filter(product => product.id !== id));
-    console.log('click on delete');
-  };
 
   return (
     <div className={s.container}>
@@ -98,31 +84,11 @@ function EditPageFilter() {
       />
 
       <div className={s.list}>
-        {foundProducts && foundProducts.length > 0 ? (
-          foundProducts.map(product => (
-            <li key={product.id} className={s.productInitial}>
-              <span className={s.id}>{product.categoryId}</span>
-              <span className={s.name}>{product.name}</span>
-              {/* <span className={s.cost}>{product.cost}$</span> */}
-              <button type="submit" className={s.button}>
-                Edit
-              </button>
-              <button
-                type="submit"
-                className={s.buttonDelete}
-                value={name}
-                onClick={() => deletePosition(product.id)}
-              >
-                Delete
-              </button>
-            </li>
-          ))
+        {stateProducts && stateProducts.length > 0 ? (
+          <div>{mappedStateToJsx} </div>
         ) : (
           <h1>No results found!</h1>
         )}
-        {mappedStateToJsx}
-        {/* <DemoComponent /> */}
-        {/* <EditableProduct onRemove={deleteContact} /> */}
       </div>
     </div>
   );
