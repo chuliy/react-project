@@ -2,25 +2,22 @@ import React, { useState } from 'react';
 import './SortDropdown.css';
 
 function sort(sortType, sortArr, sortFlags) {
-  console.log('sort fucntion arguments:', sortType, sortArr);
-  if (sortType === 'name') {
-    sortArr.sort((a, b) => {
-      return a.name > b.name ? -sortFlags.name : sortFlags.name;
-    });
-  } else if (sortType === 'price') {
-    sortArr.sort((a, b) => {
-      return Number(a.cost) > Number(b.cost)
-        ? -sortFlags.price
-        : sortFlags.price;
-    });
-  } else if (sortType === 'category') {
-    sortArr.sort((a, b) => {
-      return a.categoryId > b.categoryId
-        ? -sortFlags.category
-        : sortFlags.category;
-    });
-  }
-  return sortArr;
+    if (sortType === "name") {
+        sortArr.sort((a, b) => {
+            return a.name > b.name ? -sortFlags.name : sortFlags.name
+        })
+    }
+    else if (sortType === "price") {
+        sortArr.sort((a, b) => {
+            return Number(a.cost) > Number(b.cost) ? -sortFlags.price : sortFlags.price
+        })
+    }
+    else if (sortType === "category") {
+        sortArr.sort((a, b) => {
+            return a.categoryId > b.categoryId ? -sortFlags.category : sortFlags.category
+        })
+    }
+    return sortArr
 }
 
 function liftSortResult(stateliftHandlerFn, sortedArr) {
