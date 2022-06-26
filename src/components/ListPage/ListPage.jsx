@@ -34,11 +34,6 @@ const ListPage = (props) => {
         setProducts({ products: newState, backupProducts: newState });
     }
 
-    // PROBLEMS
-    // FILTER HAS A BUG WHEN WE HAVE ONLY 1 ITEM ON THE LIST
-    // WHEN WE HAVE 0 ITEMS THEN <Items /> component isn't visible
-    // CATEGORY REVERSE SORTING ISN"T WORKING
-
     const handleFilters = (filterType, filterState) => {
         let tv1 = { ...filterState, [filterType]: !filterState[filterType] };
 
@@ -64,7 +59,7 @@ const ListPage = (props) => {
         newState = products.backupProducts.filter((obj) => { return (obj.categoryId === arr[0]) || (obj.categoryId === arr[1]) || (obj.categoryId === arr[2]) });
         /// ????????
         
-        if (newState.length > 0) {
+        if (arr.length > 0) {
             setProducts({ ...products, products: newState });
         } else {
             setProducts({ ...products, products: products.backupProducts });
