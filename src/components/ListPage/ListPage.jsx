@@ -34,19 +34,24 @@ const ListPage = (props) => {
         setProducts({ products: newState, backupProducts: newState });
     }
 
+    // PROBLEMS
+    // FILTER HAS A BUG WHEN WE HAVE ONLY 1 ITEM ON THE LIST
+    // WHEN WE HAVE 0 ITEMS THEN <Items /> component isn't visible
+    // CATEGORY REVERSE SORTING ISN"T WORKING
+
     const handleFilters = (filterType, filterState) => {
         let tv1 = { ...filterState, [filterType]: !filterState[filterType] };
 
         /// ????? как связать асинхронный setState с синхронным кодом, который зависит от изменного этим setState'ом стейта?
         setFilterState({ ...tv1 });
-        /// ?????
+        /// ????? while prev state=new state do nothing?
 
         let arr = [];
         let newState = [];
         for (let key in tv1) {
             if (tv1[key] === true) {
                 for (let i = 0; i < categories.length; i++) {
-                    if (categories[i].name == key) {
+                    if (categories[i].name === key) {
                         arr.push(categories[i].id);
                     }
                 }
@@ -56,7 +61,7 @@ const ListPage = (props) => {
         /// Как в addEventListener event передается не первым аргументом, если обычно закрепление аргумента идется по порядку?
 
         /// ???????? как фильтровать по нескольким логическим условиям, если неизвестно кол-во этих условий?
-        newState = products.backupProducts.filter((obj) => { return (obj.categoryId == arr[0]) || (obj.categoryId == arr[1]) || (obj.categoryId == arr[2]) });
+        newState = products.backupProducts.filter((obj) => { return (obj.categoryId === arr[0]) || (obj.categoryId === arr[1]) || (obj.categoryId === arr[2]) });
         /// ????????
         
         if (newState.length > 0) {
