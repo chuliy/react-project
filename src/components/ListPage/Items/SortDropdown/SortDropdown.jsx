@@ -70,7 +70,7 @@ export const SortDropdown = props => {
         setState({
           showDropdown: !state.showDropdown,
           currentSortType: 'Sort by:' + event.target.innerText,
-          sortFlags: { ...state.sortFlags, name: -state.sortFlags.category },
+          sortFlags: { ...state.sortFlags, category: -state.sortFlags.category },
         });
 
         let tempVar = [...props.products];
