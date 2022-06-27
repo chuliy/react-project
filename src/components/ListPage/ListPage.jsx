@@ -39,12 +39,17 @@ const ListPage = props => {
     setProducts({ products: newState, backupProducts: newState });
   };
 
+  // PROBLEMS
+  // FILTER HAS A BUG WHEN WE HAVE ONLY 1 ITEM ON THE LIST
+  // WHEN WE HAVE 0 ITEMS THEN <Items /> component isn't visible
+  // CATEGORY REVERSE SORTING ISN"T WORKING
+
   const handleFilters = (filterType, filterState) => {
     let tv1 = { ...filterState, [filterType]: !filterState[filterType] };
 
     /// ????? как связать асинхронный setState с синхронным кодом, который зависит от изменного этим setState'ом стейта?
     setFilterState({ ...tv1 });
-    /// ?????
+    /// ????? while prev state=new state do nothing?
 
     let arr = [];
     let newState = [];

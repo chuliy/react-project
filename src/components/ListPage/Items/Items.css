@@ -1,6 +1,5 @@
 .items-main-container {
     background: rgba(255, 255, 255, 1);
-    border-radius: 40px;
     min-width: 600px;
     width: 100%;
     min-height: 70vh;
@@ -8,3 +7,12 @@
     padding-top: 20px;
     box-sizing: border-box;
 }
+
+@media (min-width: 1px) and (max-width: 995px) {
+    .items-main-container  {
+        min-width: 290px;
+        min-height: max-content;
+        margin: 10px;
+        max-width: -moz-available;
+    }
+  }
