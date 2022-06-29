@@ -7,11 +7,11 @@ function matchCategory(categoryId, categoriesListOfObj) {
   return products.name;
 }
 
-function EditPageFilter() {
+function EditPageFilter({ modalState, modalStateHandler }) {
   // the value of the search field
   const [name, setName] = useState('');
 
-  const [stateProducts, setStateProducts] = useState({products: [], backupProducts: []});
+  const [stateProducts, setStateProducts] = useState({ products: [], backupProducts: [] });
   const [stateCategories, setStateCategories] = useState([]);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ function EditPageFilter() {
 
   const deleteItems = idToDelete => {
     const result = stateProducts.products.filter(item => item.id !== idToDelete)
-    setStateProducts({backupProducts: result, products: result});
+    setStateProducts({ backupProducts: result, products: result });
     deleteItem(idToDelete);
   };
 
@@ -51,7 +51,17 @@ function EditPageFilter() {
             {matchCategory(products.categoryId, stateCategories)}
           </span>
           <span className={s.name}>{products.name}</span>
-          <button type="submit" className={s.button}>
+          <button
+            type="submit" className={s.button}
+            onClick={() => modalStateHandler({
+              showModal: !modalState.showModal,
+              itemData: {
+                name: products.name,
+                category: products.categoryId,
+                cost: products.cost,
+                id: products.id
+              }
+            })}>
             Edit
           </button>
           <button
