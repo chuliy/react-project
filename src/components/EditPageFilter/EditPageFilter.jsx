@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import s from './EditPageFilter.module.css';
 import { getItems, getCategories, deleteItem } from '../../serverqueries';
+import Modal from './Modal';
 
+// import Modal from "react-modal";
+
+
+// Modal.setAppElement("#root");
 // This holds a list of some fiction products
 // Some  have the same name but different cost and id
 const initialProducts = [];
@@ -19,6 +24,8 @@ function EditPageFilter() {
   const [stateProducts, setStateProducts] = useState([]);
   const [stateCategories, setStateCategories] = useState([]);
 
+  const [modalOpen, setModalOpen] = useState(false);
+
   useEffect(() => {
     getItems().then(items => setStateProducts(items));
     getCategories().then(items => setStateCategories(items));
@@ -28,7 +35,6 @@ function EditPageFilter() {
     setStateProducts(stateProducts.filter(item => item.id !== idToDelete));
     deleteItem(idToDelete);
   };
-
 
   const filter = e => {
     const keyword = e.target.value;
@@ -56,9 +62,11 @@ function EditPageFilter() {
             {matchCategory(products.categoryId, stateCategories)}
           </span>
           <span className={s.name}>{products.name}</span>
-          <button type="submit" className={s.button}>
+          <button type="submit" className={s.button} onClick={()=> setModalOpen(true)}>
             Edit
           </button>
+          
+         
           <button
             type="submit"
             className={s.buttonDelete}
@@ -89,6 +97,7 @@ function EditPageFilter() {
           <h1>No results found!</h1>
         )}
       </div>
+      {modalOpen && <Modal setOpenModal={setModalOpen} />}
     </div>
   );
 }
