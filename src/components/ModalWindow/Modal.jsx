@@ -40,7 +40,7 @@ export function Modal({ modalState, modalStateHandler }) {
                             </button>
                             <button id="contBtn"
                                  onClick={ () => {
-                                    modifyItem({id: modalState.itemData.id, name: modalState.itemData.name, categoryId: modalState.itemData.category, cost: modalState.itemData.cost});
+                                    modifyItem({id: modalState.itemData.id, name: modalState.itemData.name, categoryId: Number(modalState.itemData.category), cost: modalState.itemData.cost});
                                     modalStateHandler({ ...modalState, showModal: !modalState.showModal });
                                     window.location.reload();;
                                 }}
