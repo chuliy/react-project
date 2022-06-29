@@ -1,15 +1,18 @@
 import React from 'react';
-import "./Item.css";
+import s from './Item.module.css';
 
-export const Item = (props) => {
-    
-    return (
-        <div className='item-wrapper'>
-            <div className='item-info-container'>
-                <div className='item-info' data-cy='item-data-name'>{props.productName}</div>
-                <div className='item-info'>{props.productCategoryId}</div>
-                <div className='item-info' data-cy='item-data-cost'>{props.productCost}</div>
-            </div>
+export const Item = props => {
+  return (
+    <div className={s.wrapper}>
+      <div className={s.container}>
+        <div className={s.info} data-cy="item-data-name">
+          {props.productName}
         </div>
-    );
+        <div className={s.info}>{props.productCategoryId}</div>
+      </div>
+      <div className={s.cost} data-cy="item-data-cost">
+        {props.productCost}
+      </div>
+    </div>
+  );
 };

@@ -1,0 +1,18 @@
+.container {
+  background: rgba(255, 255, 255, 1);
+  min-width: 600px;
+  width: 100%;
+  min-height: 70vh;
+  margin: 0px 20px 10px 10px;
+  padding-top: 20px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1px) and (max-width: 995px) {
+  .container {
+    min-width: 290px;
+    min-height: max-content;
+    margin: 10px;
+    max-width: -moz-available;
+  }
+}

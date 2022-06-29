@@ -1,16 +1,18 @@
 .container {
   padding-top: 30px;
-  width: 800px;
+  width: 50%;
   margin: auto;
 }
 
 .input {
+  display: flex;
+  margin: auto;
   padding: 14px 32px 14px 16px;
   border-radius: 4px 0 0 4px;
   border: 2px solid #5d0cff;
   outline: none;
-  width: 520px;
-  margin-left: 24px;
+  width: 50%;
+  min-width: 300px;
 }
 
 .list {
@@ -27,14 +29,7 @@
   margin: 4px auto;
   padding: 16px;
   width: 90%;
-}
-.productInitial {
-  list-style: none;
-  margin: 10px 0;
-  padding: 10px;
-  background: rgb(198, 236, 217);
-  display: flex;
-  justify-content: right;
+  min-width: 300px;
 }
 
 .id {
@@ -117,16 +112,11 @@
   box-shadow: rgba(199, 183, 230, 0.4) 0 0 0 3px;
   outline: none;
 }
-/* .button,
-.buttonDelete:disabled {
-  background-color: #c071df;
-  border-color: rgba(27, 31, 35, 0.1);
-  color: rgba(255, 255, 255, 0.8);
-  cursor: default;
+@media (min-width: 1px) and (max-width: 995px) {
+  .container {
+    justify-content: left;
+    padding-left: 15px;
+    box-sizing: border-box;
+    margin: auto;
+  }
 }
-
-.button,
-.buttonDelete:active {
-  background-color: #cdb8e6;
-  box-shadow: rgba(20, 70, 32, 0.2) 0 1px 0 inset;
-} */
