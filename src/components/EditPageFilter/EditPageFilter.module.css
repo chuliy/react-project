@@ -5,12 +5,12 @@
 }
 
 .input {
-  margin-top: 5px;
-  display: block;
-  width: 55%;
-  height: 35px;
-  margin-right: auto;
-  font-size: 12px;
+  padding: 14px 32px 14px 16px;
+  border-radius: 4px 0 0 4px;
+  border: 2px solid #5d0cff;
+  outline: none;
+  width: 520px;
+  margin-left: 24px;
 }
 
 .list {
@@ -18,12 +18,15 @@
 }
 
 .product {
-  list-style: none;
-  margin: 10px 0;
-  padding: 10px;
-  background: rgb(240, 227, 241);
+  align-items: center;
+  background: linear-gradient(90deg, rgb(240, 227, 241), rgb(233, 112, 241));
+  border-radius: 5px;
+  color: #fff;
   display: flex;
-  justify-content: right;
+  justify-content: space-between;
+  margin: 4px auto;
+  padding: 16px;
+  width: 90%;
 }
 .productInitial {
   list-style: none;
@@ -73,7 +76,7 @@
 .buttonDelete {
   margin-left: 10px;
   appearance: none;
-  background-color: #2c116d;
+  background-color: #815dd6;
   border: 1px solid rgba(27, 31, 35, 0.15);
   border-radius: 6px;
   box-shadow: rgba(27, 31, 35, 0.1) 0 1px 0;

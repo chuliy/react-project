@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Filter } from './Filter/Filter';
 import { Items } from './Items/Items';
 import { getItems, getCategories } from '../../serverqueries';
-import './ListPage.css';
+import s from './ListPage.module.css';
 
 function initFilterState(categories) {
   const obj = {};
@@ -78,7 +78,7 @@ const ListPage = props => {
   };
   if (products.products) {
     return (
-      <div className="list-page-main-container">
+      <div className={s.container}>
         <Filter
           filters={categories}
           filtersHandler={handleFilters}
