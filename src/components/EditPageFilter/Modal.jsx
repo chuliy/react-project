@@ -26,7 +26,9 @@ function Modal(props) {
         </div>
         
         <div className="body">
+
         <div>{props.name}</div>
+        
           <input className="input" type="text" 
             value={value} 
             onChange={(e)=> onChange}
