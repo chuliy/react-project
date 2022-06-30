@@ -91,7 +91,7 @@ export function Modal({ modalState, modalStateHandler }) {
                   window.location.reload();
                 }}
               >
-                Continue
+                Save
               </button>
             </div>
           </div>

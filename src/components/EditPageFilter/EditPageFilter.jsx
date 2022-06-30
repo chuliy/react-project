@@ -51,6 +51,7 @@ function EditPageFilter({ modalState, modalStateHandler }) {
             {matchCategory(products.categoryId, stateCategories)}
           </span>
           <span className={s.name}>{products.name}</span>
+          <span className={s.name}>{products.cost}</span>
           <button
             type="submit" className={s.button}
             onClick={() => modalStateHandler({
