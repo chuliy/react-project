@@ -1,16 +1,18 @@
 .container {
   padding-top: 30px;
-  width: 800px;
+  width: 50%;
   margin: auto;
 }
 
 .input {
-  margin-top: 5px;
-  display: block;
-  width: 55%;
-  height: 35px;
-  margin-right: auto;
-  font-size: 12px;
+  display: flex;
+  margin: auto;
+  padding: 14px 32px 14px 16px;
+  border-radius: 4px 0 0 4px;
+  border: 2px solid #5d0cff;
+  outline: none;
+  width: 50%;
+  min-width: 300px;
 }
 
 .list {
@@ -18,20 +20,16 @@
 }
 
 .product {
-  list-style: none;
-  margin: 10px 0;
-  padding: 10px;
-  background: rgb(240, 227, 241);
+  align-items: center;
+  background: linear-gradient(90deg, rgb(240, 227, 241), rgb(233, 112, 241));
+  border-radius: 5px;
+  color: #fff;
   display: flex;
-  justify-content: right;
-}
-.productInitial {
-  list-style: none;
-  margin: 10px 0;
-  padding: 10px;
-  background: rgb(198, 236, 217);
-  display: flex;
-  justify-content: right;
+  justify-content: space-between;
+  margin: 4px auto;
+  padding: 16px;
+  width: 90%;
+  min-width: 300px;
 }
 
 .id {
@@ -73,7 +71,7 @@
 .buttonDelete {
   margin-left: 10px;
   appearance: none;
-  background-color: #2c116d;
+  background-color: #815dd6;
   border: 1px solid rgba(27, 31, 35, 0.15);
   border-radius: 6px;
   box-shadow: rgba(27, 31, 35, 0.1) 0 1px 0;
@@ -114,16 +112,11 @@
   box-shadow: rgba(199, 183, 230, 0.4) 0 0 0 3px;
   outline: none;
 }
-/* .button,
-.buttonDelete:disabled {
-  background-color: #c071df;
-  border-color: rgba(27, 31, 35, 0.1);
-  color: rgba(255, 255, 255, 0.8);
-  cursor: default;
+@media (min-width: 1px) and (max-width: 995px) {
+  .container {
+    justify-content: left;
+    padding-left: 15px;
+    box-sizing: border-box;
+    margin: auto;
+  }
 }
-
-.button,
-.buttonDelete:active {
-  background-color: #cdb8e6;
-  box-shadow: rgba(20, 70, 32, 0.2) 0 1px 0 inset;
-} */
