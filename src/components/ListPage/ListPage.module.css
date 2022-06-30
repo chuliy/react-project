@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  width: 100%;
+  min-height: 70vh;
+}
+
+@media (min-width: 1px) and (max-width: 995px) {
+  .container {
+    display: block;
+    min-height: auto;
+  }
+}
