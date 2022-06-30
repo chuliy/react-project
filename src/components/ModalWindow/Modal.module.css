@@ -63,7 +63,7 @@
   height: 45px;
   margin: 10px;
   border: none;
-  background-color: cornflowerblue;
+  background-color: #815dd6;
   color: white;
   border-radius: 8px;
   font-size: 20px;
@@ -71,5 +71,5 @@
 }
 
 #cancelBtn {
-  background-color: crimson;
+  background: linear-gradient(90deg, rgb(239, 205, 241), rgb(233, 112, 241));
 }
