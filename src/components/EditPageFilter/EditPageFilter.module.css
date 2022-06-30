@@ -35,12 +35,14 @@
 .id {
   color: rgb(129, 24, 199);
   margin-right: 20px;
+  width: 100px;
 }
 
 .name {
   text-align: center;
   color: rgb(64, 7, 78);
   margin-right: auto;
+  width: 200px;
 }
 
 .button {

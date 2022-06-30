@@ -80,12 +80,23 @@ const CreatePage = () => {
             />
           </div>
 
-          <button className={s.add} id={s.cancel} onSubmit={onSubmit}>
+          {/* <button className={s.add} id={s.cancel} onSubmit={onSubmit} 
+          onClick={() => {setVal({name:'',cost:''})}}>
             Cancel
-          </button>
-          {/* <button className="add" onClick={() => {setVal({name:'',categoryId:null,cost:''})}}>
-            Reset
           </button> */}
+ 
+           <input
+            className={s.add}
+            id={s.cancel}
+            type="reset"
+            value="Cancel"
+            data-cy="submit"
+            onClick={e => {
+              setVal({name:'',categoryId:null,cost:''})
+              console.log('Item posted :', val);
+              console.log(getItems());
+            }}
+          ></input>
           <input
             className={s.add}
             type="reset"
