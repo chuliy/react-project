@@ -10,41 +10,32 @@ function initFilterState(categories) {
     var tmp = categories[i].name;
     obj[tmp] = false;
   }
-  return obj;
+  return obj
 }
 
 const ListPage = props => {
-  const [products, setProducts] = useState({
-    products: [],
-    backupProducts: [],
-  });
+  const [products, setProducts] = useState({ products: [], backupProducts: [] });
   const [categories, setCategories] = useState([]);
   const [filterState, setFilterState] = useState({});
 
   useEffect(() => {
     getItems().then(res => {
       setProducts({ products: res, backupProducts: res });
-    });
-    getCategories()
-      .then(res => {
-        setCategories(res);
-        return res;
-      })
-      .then(res => {
-        setFilterState(initFilterState(res));
-      });
+    })
+    getCategories().then(res => {
+      setCategories(res);
+      return res
+    })
+      .then((res) => { setFilterState(initFilterState(res)) });
   }, []);
 
-  const stateLiftHandler = newState => {
+  const stateLiftHandler = (newState) => {
     setProducts({ products: newState, backupProducts: newState });
-  };
+  }
 
   const handleFilters = (filterType, filterState) => {
     let tv1 = { ...filterState, [filterType]: !filterState[filterType] };
-
-    /// ????? как связать асинхронный setState с синхронным кодом, который зависит от изменного этим setState'ом стейта?
     setFilterState({ ...tv1 });
-    /// ????? while prev state=new state do nothing?
 
     let arr = [];
     let newState = [];
@@ -58,39 +49,21 @@ const ListPage = props => {
       }
     }
 
-    /// Как в addEventListener event передается не первым аргументом, если обычно закрепление аргумента идется по порядку?
-
-    /// ???????? как фильтровать по нескольким логическим условиям, если неизвестно кол-во этих условий?
-    newState = products.backupProducts.filter(obj => {
-      return (
-        obj.categoryId === arr[0] ||
-        obj.categoryId === arr[1] ||
-        obj.categoryId === arr[2]
-      );
-    });
-    /// ????????
+    newState = products.backupProducts.filter((obj) => arr.includes(obj.categoryId));
 
     if (arr.length > 0) {
       setProducts({ ...products, products: newState });
     } else {
       setProducts({ ...products, products: products.backupProducts });
     }
-  };
+  }
   if (products.products) {
     return (
       <div className={s.container}>
-        <Filter
-          filters={categories}
-          filtersHandler={handleFilters}
-          filterState={filterState}
-        />
-        <Items
-          products={products.products}
-          categories={categories}
-          parentStateHandler={stateLiftHandler}
-        />
+        <Filter filters={categories} filtersHandler={handleFilters} filterState={filterState} />
+        <Items products={products.products} categories={categories} parentStateHandler={stateLiftHandler} />
       </div>
-    );
+    )
   }
 };
 
