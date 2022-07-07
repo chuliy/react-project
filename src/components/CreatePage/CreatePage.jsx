@@ -99,7 +99,7 @@ const CreatePage = () => {
           ></input>
           <input
             className={s.add}
-            type="reset"
+            type="submit"
             value="Save"
             data-cy="submit"
             onClick={e => {
