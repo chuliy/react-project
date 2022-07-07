@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Filter } from './Filter/Filter';
 import { Items } from './Items/Items';
 import { getItems, getCategories } from '../../serverqueries';
-import "./ListPage.css";
+import s from './ListPage.module.css';
 
 function initFilterState(categories) {
   const obj = {};
@@ -13,8 +13,7 @@ function initFilterState(categories) {
   return obj
 }
 
-const ListPage = (props) => {
-
+const ListPage = props => {
   const [products, setProducts] = useState({ products: [], backupProducts: [] });
   const [categories, setCategories] = useState([]);
   const [filterState, setFilterState] = useState({});

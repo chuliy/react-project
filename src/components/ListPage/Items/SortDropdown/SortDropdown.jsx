@@ -1,23 +1,25 @@
 import React, { useState } from 'react';
-import './SortDropdown.css';
+import s from './SortDropdown.module.css';
 
 function sort(sortType, sortArr, sortFlags) {
-    if (sortType === "name") {
-        sortArr.sort((a, b) => {
-            return a.name > b.name ? -sortFlags.name : sortFlags.name
-        })
-    }
-    else if (sortType === "price") {
-        sortArr.sort((a, b) => {
-            return Number(a.cost) > Number(b.cost) ? -sortFlags.price : sortFlags.price
-        })
-    }
-    else if (sortType === "category") {
-        sortArr.sort((a, b) => {
-            return a.categoryId > b.categoryId ? -sortFlags.category : sortFlags.category
-        })
-    }
-    return sortArr
+  if (sortType === 'name') {
+    sortArr.sort((a, b) => {
+      return a.name > b.name ? -sortFlags.name : sortFlags.name;
+    });
+  } else if (sortType === 'price') {
+    sortArr.sort((a, b) => {
+      return Number(a.cost) > Number(b.cost)
+        ? -sortFlags.price
+        : sortFlags.price;
+    });
+  } else if (sortType === 'category') {
+    sortArr.sort((a, b) => {
+      return a.categoryId > b.categoryId
+        ? -sortFlags.category
+        : sortFlags.category;
+    });
+  }
+  return sortArr;
 }
 
 function liftSortResult(stateliftHandlerFn, sortedArr) {
@@ -70,7 +72,10 @@ export const SortDropdown = props => {
         setState({
           showDropdown: !state.showDropdown,
           currentSortType: 'Sort by:' + event.target.innerText,
-          sortFlags: { ...state.sortFlags, category: -state.sortFlags.category },
+          sortFlags: {
+            ...state.sortFlags,
+            category: -state.sortFlags.category,
+          },
         });
 
         let tempVar = [...props.products];
@@ -82,21 +87,21 @@ export const SortDropdown = props => {
 
     if (!state.showDropdown) {
       return (
-        <div className="dropdown-main-container">
-          <div className="d" onClick={handleClick}>
+        <div className={s.container}>
+          <div className={s.sort} onClick={handleClick}>
             {state.currentSortType}
           </div>
         </div>
       );
     } else {
       const sortTypesHtml = sortTypes.map(el => (
-        <div className="d" key={el} onClick={handleClick}>
+        <div className={s.sort} key={el} onClick={handleClick}>
           {el}
         </div>
       ));
       return (
-        <div className="dropdown-main-container">
-          <div className="d" onClick={handleClick}>
+        <div className={s.container}>
+          <div className={s.sort} onClick={handleClick}>
             {state.currentSortType}
           </div>
           {sortTypesHtml}

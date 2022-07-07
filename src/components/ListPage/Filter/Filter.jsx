@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Filter.css";
+import s from "./Filter.module.css";
 
 export const Filter = (props) => {
     if (props.filters.length > 0) {
@@ -21,9 +21,9 @@ export const Filter = (props) => {
         )
 
         return (
-            <div className='filter-container'>
-                <div className='filters-header'>FILTERS</div>
-                <div className='filters'>
+            <div className={s.container}>
+                <div className={s.header}>FILTERS</div>
+                <div className={s.filters}>
                     {mappedFiltersToJsx}
                 </div>
             </div>
