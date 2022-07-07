@@ -59,7 +59,7 @@ const ListPage = props => {
   }
   if (products.products) {
     return (
-      <div className='list-page-main-container'>
+      <div className={s.container}>
         <Filter filters={categories} filtersHandler={handleFilters} filterState={filterState} />
         <Items products={products.products} categories={categories} parentStateHandler={stateLiftHandler} />
       </div>
